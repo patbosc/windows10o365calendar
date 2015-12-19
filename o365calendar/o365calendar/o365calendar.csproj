@@ -97,6 +97,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AuthenticationProvider.cs" />
+    <Compile Include="Helpers\CalendarOperations.cs" />
     <Compile Include="Helpers\DiscoveryServiceCache.cs" />
     <Compile Include="Helpers\ExctendedHelpers.cs" />
     <Compile Include="Helpers\MessageDialogHelper.cs" />

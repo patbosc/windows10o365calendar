@@ -14,7 +14,7 @@ namespace o365calendar.Helpers
     /// :exclamation:This is the implementation of the O365 API Authentication and does not use the unified API
     /// Please note if possible use the new API Endpoints
     /// </summary>
-    public class AuthenticationProvider
+    internal class AuthenticationProvider
     {
         private static readonly string ClientId =
             Windows.UI.Xaml.Application.Current.Resources["ida:ClientID"].ToString();
