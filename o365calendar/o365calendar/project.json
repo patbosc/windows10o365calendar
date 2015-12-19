@@ -1,6 +1,11 @@
 ﻿{
   "dependencies": {
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0"
+    "Microsoft.Azure.ActiveDirectory.GraphClient": "2.1.0",
+    "Microsoft.IdentityModel.Clients.ActiveDirectory": "2.14.201151115",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
+    "Microsoft.Office365.Discovery": "1.0.22",
+    "Microsoft.Office365.OAuth.Windows": "1.0.22",
+    "Microsoft.Office365.OutlookServices": "1.0.41"
   },
   "frameworks": {
     "uap10.0": {}
