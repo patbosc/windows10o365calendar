@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using o365calendar.Helpers;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -25,6 +27,11 @@ namespace o365calendar
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private async void Button_OnClick(object sender, RoutedEventArgs e)
+        {
+            //TODO: Call the Calendar Scenarios
         }
     }
 }

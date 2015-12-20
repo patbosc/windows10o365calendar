@@ -8,6 +8,7 @@ using Microsoft.Office365.Discovery;
 
 namespace o365calendar.Helpers
 {
+    [Obsolete]
     public class DiscoveryServiceCache
     {
         const string FileName = "DiscoveryInfo.txt";
