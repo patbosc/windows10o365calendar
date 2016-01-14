@@ -102,7 +102,13 @@
     <Compile Include="Helpers\CalendarOperations.cs" />
     <Compile Include="Helpers\DiscoveryServiceCache.cs" />
     <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Helpers\LoadStateEventArgs.cs" />
+    <Compile Include="Helpers\LoadStateEventHandler.cs" />
     <Compile Include="Helpers\MessageDialogHelper.cs" />
+    <Compile Include="Common\NavigationHelper.cs" />
+    <Compile Include="Helpers\SaveStateEventArgs.cs" />
+    <Compile Include="Helpers\SaveStateEventHandler.cs" />
+    <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Helpers\UserOperations.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -120,6 +126,9 @@
     <None Include="o365calendar_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\CalendarIcon.png" />
+    <Content Include="Assets\UserDefault.png" />
+    <Content Include="Assets\UserDefaultSignedIn.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

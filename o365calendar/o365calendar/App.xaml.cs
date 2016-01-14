@@ -4,6 +4,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using o365calendar.Models;
 
 namespace o365calendar
 {
@@ -12,6 +13,19 @@ namespace o365calendar
     /// </summary>
     sealed partial class App : Application
     {
+        private static UserViewModel _currentUser;
+        public static UserViewModel CurrentUser
+        {
+            get
+            {
+                if (_currentUser == null)
+                {
+                    _currentUser = new UserViewModel();
+                }
+                return _currentUser;
+            }
+        }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
