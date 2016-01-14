@@ -5,12 +5,12 @@
     xmlns:local="using:o365calendar"
     RequestedTheme="Light">
     <Application.Resources>
-        <x:String x:Key="ida:ClientId">1c364b7e-5bda-4c20-89f8-659d5df798d2</x:String>
-        <x:String x:Key="ida:AADInstance">https://login.microsoftonline.com/</x:String>
-        <x:String x:Key="ida:Domain">imenja.onmicrosoft.com</x:String>
         <SolidColorBrush x:Key="SampleHeaderBrush" Color="#007ACC" />
         <SolidColorBrush x:Key="HyperLinkBrush" Color="#FFECE4FF" />
         <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="#1799F0" />
+        <x:String x:Key="ida:ClientId">38a92950-3cfd-4f91-af56-993367b83e7a</x:String>
+        <x:String x:Key="ida:AADInstance">https://login.microsoftonline.com/</x:String>
+        <x:String x:Key="ida:Domain">imenja.onmicrosoft.com</x:String>
     </Application.Resources>
 
 </Application>

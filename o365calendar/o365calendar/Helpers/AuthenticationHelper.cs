@@ -20,7 +20,7 @@ namespace o365calendar.Helpers
         // The ClientID is added as a resource in App.xaml when you register the app with Office 365. 
         // As a convenience, we load that value into a variable called ClientID. This way the variable 
         // will always be in sync with whatever client id is added to App.xaml.
-        private static readonly string ClientID = App.Current.Resources["ida:ClientID"].ToString();
+        private static readonly string ClientID = App.Current.Resources["ida:ClientId"].ToString();
         private static Uri _returnUri = WebAuthenticationBroker.GetCurrentApplicationCallbackUri();
 
 
@@ -149,7 +149,7 @@ namespace o365calendar.Helpers
                     // can use this app inside a corporate intranet. If the value of UseCorporateNetwork 
                     // is true, you also need to add the Enterprise Authentication, Private Networks, and
                     // Shared User Certificates capabilities in the Package.appxmanifest file.
-                    _authenticationContext.UseCorporateNetwork = true;
+                    //_authenticationContext.UseCorporateNetwork = true;
 
                     var token = await GetTokenHelperAsync(_authenticationContext, AadServiceResourceId);
 
