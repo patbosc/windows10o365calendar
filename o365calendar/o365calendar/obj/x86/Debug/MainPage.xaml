@@ -1,0 +1,202 @@
+﻿<Page
+    x:Class="o365calendar.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:o365calendar"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:common="using:o365calendar.Common"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Page.Resources>
+    <Grid x:ConnectionId='1' Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="aGrid" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="{StaticResource SampleHeaderBrush}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0" Source="Assets/Logo.scale-100.png" Height="70" Margin="10,0,40,0"/>
+                <TextBlock x:ConnectionId='14' x:Name="appTitle" Grid.Column="2" Text="Calendar API" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Style="{StaticResource HeaderTextBlockStyle}"
+                       />
+                <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button  Command="{Binding ToggleSignInCommand}" Content="{Binding LogOnCaption}" VerticalAlignment="Bottom" Margin="0,0,15,15" />
+                    <Image Source="{Binding Avatar}" Height="50" Margin="10,0,0,0"/>
+                    <StackPanel Margin="20,0,20,15" VerticalAlignment="Bottom">
+                        <TextBlock Text="{Binding DisplayName}" Margin="0,10,0,0"/>
+                        <TextBlock Text="{Binding JobTitle}" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+        </Border>
+
+        <!-- Progress bar and the sample summary -->
+        <ProgressBar x:ConnectionId='2' Name="LoadCalendarProgress"  Width="900" DataContext="{Binding CalendarViewModel}"
+                     Visibility="{Binding Path=LoadingCalendarEvents, Converter={StaticResource BooleanToVisibilityConverter}}"
+                     Grid.Row="1" VerticalAlignment="Top" Margin="0,10,0,1"  IsIndeterminate="True"/>
+
+        <TextBlock Grid.Row="1"        
+                   HorizontalAlignment="Center"
+                   TextWrapping="Wrap"
+                   Style="{StaticResource BaseTextBlockStyle}" Margin="10"
+                   >
+                To get started, select the <Bold>Get calendar events</Bold> button to retrieve the first page of calendar events. <LineBreak/> Learn more about the REST API calls made in this application by reading 
+                <Bold><Hyperlink NavigateUri="http://msdn.microsoft.com/office/office365/api/calendar-rest-operations" Foreground="{StaticResource HyperLinkBrush}"  >Calendar REST operations</Hyperlink></Bold>.
+        </TextBlock>
+
+        <!--Core input and output for the calendar operations-->
+        <Grid Grid.Row="2" DataContext="{Binding CalendarViewModel}" Margin="0,5,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel  Grid.Column="1" Grid.Row="1" >
+                <TextBlock  HorizontalAlignment="Left"  Text="Actions" VerticalAlignment="Top" Style="{ThemeResource SubheaderTextBlockStyle}" Margin="0,0,0,20" />
+                <Button 
+                Content="Get calendar events" 
+                Margin="-1,5,0,0" 
+                Command="{Binding Path=GetCalendarEventsCommand}" 
+                CommandParameter="Read" Width="185"/>
+                <Button 
+                Content="Create event " 
+                Margin="0,5,0,0" 
+                Width="185"
+                Command="{Binding Path=NewEventCommand}"/>
+                <Button 
+                Content="Update event" Margin="0,5,0,0" 
+                Width="185"
+                    Command="{Binding Path=SelectedItem.SaveChangesCommand,ElementName=CalendarEventList}"/>
+                <Button 
+                    Content="Delete event" 
+                    Margin="0,5,0,0" 
+                    Width="185"
+                    Command="{Binding Path=DeleteEventCommand}"
+                />
+
+            </StackPanel>
+            <StackPanel Grid.Column="3" Grid.Row="1" >
+                <TextBlock  HorizontalAlignment="Left"  Text="Calendar events" VerticalAlignment="Top" Style="{ThemeResource SubheaderTextBlockStyle}" Margin="10,0,0,20" />
+                <ListBox x:ConnectionId='13' 
+                Name="CalendarEventList" 
+                ItemsSource="{Binding Path=Events}" 
+                Margin="10,10,1,10" 
+                Width="500" 
+                HorizontalAlignment="Left" 
+                Height="445"
+                ScrollViewer.VerticalScrollMode="Enabled"
+
+                SelectedItem="{Binding Path=SelectedEvent, Mode=TwoWay}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=DisplayString}" Style="{StaticResource BodyTextBlockStyle}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+            <StackPanel x:ConnectionId='4' Grid.Column="5" Grid.Row="1" Margin="0,0,-18,0" Name="EventEntryPanel">
+                <TextBlock  HorizontalAlignment="Left"  Text="Event details" VerticalAlignment="Top" Style="{ThemeResource SubheaderTextBlockStyle}" Margin="10,0,0,20" />
+                <TextBox x:ConnectionId='5'
+                    PlaceholderText="Subject" 
+                    HorizontalAlignment="Left" 
+                    Name="EventName" 
+                    Text="{Binding Path=SelectedItem.Subject, ElementName=CalendarEventList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    Width="300" Margin="10,10,1,10"
+                    />
+                <TextBox x:ConnectionId='6' 
+                    PlaceholderText="Location" 
+                    HorizontalAlignment="Left" 
+                    Name="Location" 
+                    Text="{Binding Path=SelectedItem.LocationName, ElementName=CalendarEventList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                    Width="300" 
+                    Margin="10,1,1,10"
+                    />
+                <TextBox x:ConnectionId='7' 
+                    PlaceholderText="Attendees" 
+                    HorizontalAlignment="Left" 
+                    Name="Attendees" 
+                    Text="{Binding Path=SelectedItem.Attendees, ElementName=CalendarEventList,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    Width="300" 
+                    Margin="10,1,1,10"
+                    />
+                <DatePicker x:ConnectionId='8' 
+                    Name="startDatePicker" 
+                    Header="Start date"
+                    DayFormat="{}{day.integer}" 
+                    MonthFormat="{}{month.abbreviated(3)}" 
+                    YearFormat="{}{year.abbreviated(4)}" 
+                    Margin="10,1,0,10" 
+                    Width="298" Date="{Binding Path=SelectedItem.Start, ElementName=CalendarEventList, Mode=TwoWay}" 
+                    YearVisible="True"
+                />
+                <TimePicker x:ConnectionId='9'
+                Name="startTimePicker"
+                Header="Start time"
+                ClockIdentifier="12HourClock"
+                Margin="10,5,0,10"
+                Time="{Binding Path=SelectedItem.StartTime, ElementName=CalendarEventList, Mode=TwoWay}"/>
+                <DatePicker x:ConnectionId='10' 
+                Name="endDatePicker" 
+                Header="End date"
+                DayFormat="{}{day.integer}" 
+                MonthFormat="{}{month.abbreviated(3)}" 
+                YearFormat="{}{year.abbreviated(4)}" 
+                Margin="10,1,0,10" 
+                Width="298" Date="{Binding Path=SelectedItem.End,ElementName=CalendarEventList, Mode=TwoWay}" 
+                YearVisible="True"
+                />
+                <TimePicker x:ConnectionId='11'
+                Name="endTimePicker"
+                Header="End time"
+                ClockIdentifier="12HourClock"
+                Margin="10,5,0,10"
+                Time="{Binding Path=SelectedItem.EndTime, ElementName=CalendarEventList, Mode=TwoWay}"/>
+                <TextBox x:ConnectionId='12' 
+                    PlaceholderText="Body content" 
+                    HorizontalAlignment="Left" 
+                    Name="BodyContent" 
+                    Text="{Binding Path=SelectedItem.BodyContent,ElementName=CalendarEventList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    Width="298" 
+                    Margin="10,1,0,10"
+                    />
+                <Button 
+                        HorizontalAlignment="Center"
+                        Content="Undo" 
+                        Width="148" 
+                        Margin="10,5,0,0" 
+                        Command="{Binding Path=CancelEventChangesCommand}" 
+                    />
+            </StackPanel>
+        </Grid>
+        <!-- Status text -->
+        <TextBlock x:ConnectionId='3' Name="OperationResult" DataContext="{Binding Path=LoggingViewModel}"
+                     Text="{Binding Path=Information}"
+                     VerticalAlignment="Top" Margin="0,10,0,0" Style="{ThemeResource SubheaderTextBlockStyle}" Grid.Row="3" HorizontalAlignment="Center" FontSize="20">
+        </TextBlock>
+    </Grid>
+</Page>
+
