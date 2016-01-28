@@ -5,7 +5,8 @@
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
     "Microsoft.Office365.Discovery": "1.0.22",
     "Microsoft.Office365.OAuth.Windows": "1.0.22",
-    "Microsoft.Office365.OutlookServices": "1.0.41"
+    "Microsoft.Office365.OutlookServices": "1.0.41",
+    "PlatformSpecific.Analyzer": "2.0.2"
   },
   "frameworks": {
     "uap10.0": {}
